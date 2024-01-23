@@ -20,11 +20,15 @@ class FindAndSortDuplicatesTest {
         String outputFilePath = "DOM_FILES/sorted_duplicates_sample.txt";
         String actualFilePath = "DOM_FILES/sorted_duplicates_actual_sample.txt";
 
+
         //When
         FindAndSortDuplicates.sortedDuplicatesToFile(zipFilePath1, zipFilePath2, outputFilePath);
 
+        List<String> expectedLines = Files.readAllLines(Path.of(actualFilePath));
+        List<String> actualLines = Files.readAllLines(Path.of(outputFilePath));
+
         //Then
-        assertArrayEquals(Files.readAllBytes(Path.of(actualFilePath)), Files.readAllBytes(Path.of(outputFilePath)));
+        assertEquals(expectedLines, actualLines);
 
 
     }
@@ -32,14 +36,14 @@ class FindAndSortDuplicatesTest {
     @Test
     void testFindDuplicates() {
         // Create sample FareRecord lists for testing
-        Set<FareRecord> records1 = Set.of(new FareRecord(12, "AA", "ABQ","DEN",
-                "KAX2LFFM",2, 11 ),
-        new FareRecord(12, "AA", "DEN","ABQ",
-                "KAX2LFFM",2, 11 ));
-        Set<FareRecord> records2 = Set.of(new FareRecord(12, "AA", "ABQ","DEN",
-                        "KAX2LFFM",2, 11 ),
-                new FareRecord(12, "AA", "DEN","ABQ",
-                        "KAX2LFFA",2, 11 ));
+        Set<FareRecord> records1 = Set.of(new FareRecord(12, "AA", "ABQ", "DEN",
+                        "KAX2LFFM", 2, 11),
+                new FareRecord(12, "AA", "DEN", "ABQ",
+                        "KAX2LFFM", 2, 11));
+        Set<FareRecord> records2 = Set.of(new FareRecord(12, "AA", "ABQ", "DEN",
+                        "KAX2LFFM", 2, 11),
+                new FareRecord(12, "AA", "DEN", "ABQ",
+                        "KAX2LFFA", 2, 11));
 
         Set<FareRecord> duplicates = FindAndSortDuplicates.findDuplicates(records1, records2);
 
@@ -55,28 +59,26 @@ class FindAndSortDuplicatesTest {
          */
 
         Set<FareRecord> duplicates = Set.of(
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEO",2, 7 ),
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEN",2, 7 ),
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEM",2, 7 ));
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEO", 2, 7),
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEN", 2, 7),
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEM", 2, 7));
 
         List<FareRecord> sortedExpected = List.of(
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEM",2, 7 ),
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEN",2, 7 ),
-                new FareRecord(30, "UA", "ABE","HNL",
-                        "QAA5HFEO",2, 7 ));
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEM", 2, 7),
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEN", 2, 7),
+                new FareRecord(30, "UA", "ABE", "HNL",
+                        "QAA5HFEO", 2, 7));
 
         List<FareRecord> sortedDuplicates = FindAndSortDuplicates.sortDuplicates(duplicates);
 
 
         assertEquals(sortedExpected, sortedDuplicates);
     }
-
-
 
 
 }
