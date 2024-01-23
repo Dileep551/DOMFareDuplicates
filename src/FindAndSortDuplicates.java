@@ -7,8 +7,8 @@ import java.util.zip.ZipFile;
 
 
 
-record FareRecord(Integer tariff, String carrier, String origin, String destination, String fareClass,
-                  Integer link, Integer sequence) {
+record FareRecord(int tariff, String carrier, String origin, String destination, String fareClass,
+                  int link, int sequence) {
 }
 
 public class FindAndSortDuplicates {
